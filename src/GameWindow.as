@@ -12,6 +12,7 @@ public class GameWindow extends Sprite{
     private var rec:Rectangle;
     private var daysInGameWidget:DaysInGameWidget;
     private var attemptWidget:AttemptWidget;
+    private var prizeWidget:PrizeWidget;
 
     public function GameWindow(rec:Rectangle) {
         this.rec = rec;
@@ -41,6 +42,15 @@ public class GameWindow extends Sprite{
         initDaysInGameWidget();
         initAttemptWidget();
         initPrizeTableButton();
+        initPrizeWidget();
+    }
+
+    private function initPrizeWidget():void {
+        prizeWidget = new PrizeWidget(rec);
+//        prizeWidget.print("Воспользуйтесь кнопкой \"Таблица призов\",\nчтобы узнать доступные комбинации\nи призы.");
+        prizeWidget.print("Нажмите на рычаг и испытайте\nсвою удачу!");
+
+        addChild(prizeWidget);
     }
 
     private function initAttemptWidget():void {

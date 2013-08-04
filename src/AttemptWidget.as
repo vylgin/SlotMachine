@@ -6,6 +6,7 @@ import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.text.TextField;
 import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 
 public class AttemptWidget extends Sprite {
     private var rec:Rectangle;
@@ -62,6 +63,7 @@ public class AttemptWidget extends Sprite {
         textFieldInfoBox.width = 80;
         textFieldInfoBox.height = 20;
         textFieldInfoBox.setTextFormat(getCenterTextFormat());
+        textFieldInfoBox.defaultTextFormat = getCenterTextFormat();
 
         var recInfoBox:Shape = new Shape();
         with (recInfoBox.graphics) {
@@ -97,11 +99,13 @@ public class AttemptWidget extends Sprite {
     }
 
     private function paintAttemptButton(color:Number):Sprite {
+        var w = 80;
+        var h = 20;
         var button:Sprite = new Sprite();
         with (button.graphics) {
             lineStyle(1, 0x000000);
             beginFill(color);
-            drawRect(attemptButton.x, attemptButton.y, 80, 20);
+            drawRect(attemptButton.x, attemptButton.y, w, h);
             endFill();
         }
 
@@ -109,7 +113,11 @@ public class AttemptWidget extends Sprite {
         textField.text = "Добавить";
         textField.x = attemptButton.x;
         textField.y = attemptButton.y;
+        textField.width = w;
+        textField.height = h;
         textField.mouseEnabled = false;
+        textField.setTextFormat(getCenterTextFormat());
+        textField.defaultTextFormat = getCenterTextFormat();
 
         button.addChild(textField);
 
@@ -124,7 +132,7 @@ public class AttemptWidget extends Sprite {
 
     private function getCenterTextFormat():TextFormat {
         var textFormat:TextFormat = new TextFormat();
-        textFormat.align = "center";
+        textFormat.align = TextFormatAlign.CENTER;
         return textFormat;
     }
 }

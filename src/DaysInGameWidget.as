@@ -34,12 +34,14 @@ public class DaysInGameWidget extends Sprite{
         nameBox.y = rec.y;
 
         var textFormat:TextFormat = new TextFormat();
-        textFormat.align = "center";
+        textFormat.align = TextFormatAlign.CENTER;
+
         var text:TextField = new TextField();
         text.text = msg;
         text.x = nameBox.x;
         text.y = nameBox.y;
         text.setTextFormat(textFormat);
+        text.defaultTextFormat = textFormat;
 
         var nameTextBox:Shape = new Shape();
         with (nameTextBox.graphics) {
@@ -124,6 +126,10 @@ public class DaysInGameWidget extends Sprite{
 
     private function getUsualDayBox(i:int, x:int, y:int, h:int):Sprite {
         var box:Sprite = new Sprite();
+
+        var textFormat:TextFormat = new TextFormat();
+        textFormat.align = TextFormatAlign.CENTER;
+
         var text:TextField = new TextField();
 
         with (box.graphics) {
@@ -140,6 +146,10 @@ public class DaysInGameWidget extends Sprite{
         text.text = String(i);
         text.x = x;
         text.y = y;
+        text.width = 40;
+        text.height = h;
+        text.setTextFormat(textFormat);
+        text.defaultTextFormat = textFormat;
 
         box.addChild(text);
 
