@@ -1,4 +1,6 @@
 package {
+import flash.display.BlendMode;
+import flash.display.MovieClip;
 import flash.display.Shape;
 import flash.display.SimpleButton;
 import flash.display.Sprite;
@@ -13,6 +15,7 @@ public class GameWindow extends Sprite{
     private var daysInGameWidget:DaysInGameWidget;
     private var attemptWidget:AttemptWidget;
     private var prizeWidget:PrizeWidget;
+    private var spinWidget:SpinWidget;
 
     public function GameWindow(rec:Rectangle) {
         this.rec = rec;
@@ -43,6 +46,20 @@ public class GameWindow extends Sprite{
         initAttemptWidget();
         initPrizeTableButton();
         initPrizeWidget();
+        initSpinWidget();
+        initSpinButton();
+    }
+
+    private function initSpinButton():void {
+        spinWidget = new SpinWidget(rec);
+
+        addChild(spinWidget);
+    }
+
+    private function initSpinWidget():void {
+        spinWidget = new SpinWidget(rec);
+
+        addChild(spinWidget);
     }
 
     private function initPrizeWidget():void {
