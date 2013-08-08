@@ -28,6 +28,11 @@ public class AttemptWidget extends Sprite {
     public function setAttempt(attempt:uint):void {
         this.attempt = attempt;
         updateTextInfoBox();
+        if (attempt > 0) {
+            gameWindow.getSpinWidget().setSpinButtonEnabled(true);
+            gameWindow.getState().noPushSpin();
+            gameWindow.getPrizeWidget().print("Попытки добавлены!\nМожете продолжить играть!");
+        }
     }
 
     public function getAttempt():uint {
@@ -50,6 +55,10 @@ public class AttemptWidget extends Sprite {
             getChildAt(i).visible = true;
         }
         gameWindow.showAfterAttemptDialog();
+    }
+
+    private function updateTextInfoBox():void {
+        textFieldInfoBox.text = "Попыток: " + attempt;
     }
 
     private function initInfoBox():void {
@@ -77,10 +86,6 @@ public class AttemptWidget extends Sprite {
         infoBox.addChild(textFieldInfoBox);
         updateTextInfoBox();
         addChild(infoBox);
-    }
-
-    private function updateTextInfoBox():void {
-       textFieldInfoBox.text = "Попыток: " + attempt;
     }
 
     private function initAttemptButton():void {

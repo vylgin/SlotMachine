@@ -1,6 +1,13 @@
 package {
-import flash.display.BlendMode;
-import flash.display.MovieClip;
+import State.FinishRotationState;
+import State.GetPrizeState;
+import State.NoPushSpinState;
+import State.PushSpinState;
+import State.StartRotationState;
+import State.State;
+
+import avmplus.finish;
+
 import flash.display.Shape;
 import flash.display.SimpleButton;
 import flash.display.Sprite;
@@ -16,11 +23,37 @@ public class GameWindow extends Sprite{
     private var attemptWidget:AttemptWidget;
     private var prizeWidget:PrizeWidget;
     private var spinWidget:SpinWidget;
+    private var rollLineWidget:RollLineWidget;
+
+    private var noPushSpinState:State;
+    private var pushSpinState:State;
+    private var startRotationState:State;
+    private var finishRotationState:State;
+    private var getPrizeState:State;
+
+    private var state:State;
 
     public function GameWindow(rec:Rectangle) {
         this.rec = rec;
+
+        noPushSpinState = new NoPushSpinState(this);
+        pushSpinState = new PushSpinState(this);
+        startRotationState = new StartRotationState(this);
+        finishRotationState = new FinishRotationState(this);
+        getPrizeState = new GetPrizeState(this);
+
+        state = noPushSpinState;
+
         initGui();
+
+        state.noPushSpin();
     }
+
+    public function getRollLineWidget():RollLineWidget {
+        return rollLineWidget;
+    }
+
+
 
     public function hideForAttemptDialog():void {
         var i:int;
@@ -31,11 +64,51 @@ public class GameWindow extends Sprite{
         }
     }
 
+    public function getSpinWidget():SpinWidget {
+        return spinWidget;
+    }
+
+    public function getPrizeWidget():PrizeWidget {
+        return prizeWidget;
+    }
+
+    public function getAttemptWidget():AttemptWidget {
+        return attemptWidget;
+    }
+
     public function showAfterAttemptDialog():void {
         var i:int;
         for (i = 0; i < numChildren; i++) {
             getChildAt(i).visible = true;
         }
+    }
+
+    public function setState(state:State):void {
+        this.state = state;
+    }
+
+    public function getState():State {
+        return state;
+    }
+
+    public function getNoPushSpinState():State {
+        return noPushSpinState;
+    }
+
+    public function getPushSpinState():State {
+        return pushSpinState;
+    }
+
+    public function getStartRotationState():State {
+        return startRotationState;
+    }
+
+    public function getFinishRotationState():State {
+        return finishRotationState;
+    }
+
+    public function getGetPrizeState():State {
+        return getPrizeState;
     }
 
     private function initGui():void {
@@ -47,26 +120,21 @@ public class GameWindow extends Sprite{
         initPrizeTableButton();
         initPrizeWidget();
         initSpinWidget();
-        initSpinButton();
+        initRollLineWidget();
     }
 
-    private function initSpinButton():void {
-        spinWidget = new SpinWidget(rec);
-
-        addChild(spinWidget);
+    private function initRollLineWidget():void {
+        rollLineWidget = new RollLineWidget(this, rec);
+        addChild(rollLineWidget);
     }
 
     private function initSpinWidget():void {
-        spinWidget = new SpinWidget(rec);
-
+        spinWidget = new SpinWidget(this, rec);
         addChild(spinWidget);
     }
 
     private function initPrizeWidget():void {
         prizeWidget = new PrizeWidget(rec);
-//        prizeWidget.print("Воспользуйтесь кнопкой \"Таблица призов\",\nчтобы узнать доступные комбинации\nи призы.");
-        prizeWidget.print("Нажмите на рычаг и испытайте\nсвою удачу!");
-
         addChild(prizeWidget);
     }
 

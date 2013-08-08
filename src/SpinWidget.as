@@ -1,5 +1,4 @@
 package {
-import flash.display.Shape;
 import flash.display.SimpleButton;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
@@ -9,12 +8,18 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
 public class SpinWidget extends Sprite {
+    private var gameWindow:GameWindow;
     private var rec:Rectangle;
     private var spinButton:SimpleButton;
 
-    public function SpinWidget(rec:Rectangle) {
+    public function SpinWidget(gameWindow:GameWindow, rec:Rectangle) {
+        this.gameWindow = gameWindow;
         this.rec = rec;
         initSpinButton();
+    }
+
+    public function setSpinButtonEnabled(bool:Boolean):void {
+        spinButton.enabled = bool;
     }
 
     private function initSpinButton():void {
@@ -68,7 +73,7 @@ public class SpinWidget extends Sprite {
     }
 
     private function spinButtonClickHandler(event:MouseEvent):void {
-        trace("Spin button clicked");
+        gameWindow.getState().pushSpin();
     }
 }
 }

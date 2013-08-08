@@ -4,5 +4,6 @@ public interface State {
     function pushSpin():void;
     function startRotation():void;
     function finishRotation():void;
+    function getPrize():void;
 }
 }
