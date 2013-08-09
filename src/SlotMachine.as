@@ -12,12 +12,22 @@ public class SlotMachine extends Sprite {
     private var gameWindow:GameWindow;
     private var mainButton:SimpleButton;
     private static var attempt:uint;
+    private static var rareMineral:uint;
 
     public function SlotMachine() {
         setAttempt(3);
+        setRareMiniral(0);
         createMainButton();
         addChild(mainButton);
         mainButton.addEventListener(MouseEvent.CLICK, clickMainButton)
+    }
+
+    public static function setRareMiniral(count:uint):void {
+        rareMineral = count;
+    }
+
+    public static function getRarelMiniral():uint {
+        return rareMineral;
     }
 
     public static function setAttempt(i:uint):void {

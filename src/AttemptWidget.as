@@ -9,12 +9,12 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
 public class AttemptWidget extends Sprite {
+    private var gameWindow:GameWindow;
     private var rec:Rectangle;
     private var attempt:uint;
     private var infoBox:Sprite;
     private var textFieldInfoBox:TextField;
     private var attemptButton:SimpleButton;
-    private var gameWindow:GameWindow;
 
     public function AttemptWidget(attempt:uint, rec:Rectangle, gameWindow:GameWindow) {
         this.attempt = attempt;

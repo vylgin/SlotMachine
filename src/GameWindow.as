@@ -30,6 +30,7 @@ public class GameWindow extends Sprite{
     private var prizeWidget:PrizeWidget;
     private var spinWidget:SpinWidget;
     private var rollLineWidget:RollLineWidget;
+    private var rareMiniralWidget:RareMiniralWidget;
 
     private var noPushSpinState:State;
     private var pushSpinState:State;
@@ -137,6 +138,13 @@ public class GameWindow extends Sprite{
         initPrizeWidget();
         initSpinWidget();
         initRollLineWidget();
+        initRareMiniralWidget();
+    }
+
+    private function initRareMiniralWidget():void {
+        rareMiniralWidget = new RareMiniralWidget(SlotMachine.getRarelMiniral(), this, rec);
+        rareMiniralWidget.setRareMiniral(5);
+        addChild(rareMiniralWidget);
     }
 
     private function initRollLineWidget():void {
@@ -282,6 +290,8 @@ public class GameWindow extends Sprite{
 
     private function exitClickHandler(event:MouseEvent):void {
         SlotMachine.setAttempt(attemptWidget.getAttempt());
+        SlotMachine.setRareMiniral(rareMiniralWidget.getRareMiniral());
+
         while (this.numChildren > 0) {
             this.removeChildAt(0);
         }
