@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Unnamed">
     <configurations>
-      <configuration target-platform="Desktop" pure-as="true" main-class="SlotMachine" output-file=".swf" output-folder="$MODULE_DIR$">
+      <configuration target-platform="Desktop" pure-as="true" main-class="SlotMachine" output-file="SlotMachine.swf" output-folder="$MODULE_DIR$">
         <dependencies>
           <sdk name="AIRSDK_Compiler" />
         </dependencies>
