@@ -46,6 +46,10 @@ public class RollLineWidget extends Sprite {
         randomTwo = randomNumber(5, 0);
         randomThree = randomNumber(5, 0);
 
+//        randomOne = 4;
+//        randomTwo = 2;
+//        randomThree = 4;
+
         oneTextField.text = " ";
         twoTextField.text = " ";
         threeTextField.text = " ";
@@ -54,6 +58,70 @@ public class RollLineWidget extends Sprite {
         timer.addEventListener(TimerEvent.TIMER, onTick);
         timer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
         timer.start();
+    }
+
+    public function getPrize():String {
+        var one = symbol[randomOne];
+        var two = symbol[randomTwo];
+        var three = symbol[randomThree];
+        var textPrize:String = "Условия не сработали.";
+
+        if (one != two && two != three && three != one) {
+            textPrize = "Нет совпадений."
+        } else if (one == two && two == three && three == one) {
+            textPrize = getPrizeString(one, 3);
+        } else if (one == two || two == three || three == one) {
+            if (one == two) {
+                textPrize = getPrizeString(one, 2);
+            } else if (two == three) {
+                textPrize = getPrizeString(two, 2);
+            } else if (three == one) {
+                textPrize = getPrizeString(three, 2);
+            }
+        }
+
+        return textPrize;
+    }
+
+    private function getPrizeString(sym:String, count:uint):String {
+        var prize:String = "";
+
+        if (sym == symbol[0]) {
+            switch (count) {
+                case 2:
+                    gameWindow.getRareMiniralWidget().setRareMiniral(gameWindow.getRareMiniralWidget().getRareMiniral() + 10);
+                    prize = sym + " " + sym + "\nВы выйграли 10 редких минералов";
+                    break;
+                case 3:
+                    gameWindow.getRareMiniralWidget().setRareMiniral(gameWindow.getRareMiniralWidget().getRareMiniral() + 100);
+                    prize = sym + " " + sym + " " + sym + "\nВы выйграли 100 редких минералов";
+                    break;
+            }
+        } else if (sym == symbol[4]) {
+            switch (count) {
+                case 2:
+                    gameWindow.getAttemptWidget().setAttempt(gameWindow.getAttemptWidget().getAttempt() + 2);
+                    prize = sym + " " + sym + "\nВы выйграли 2 дополнительные попытки";
+                    break;
+                case 3:
+                    gameWindow.getAttemptWidget().setAttempt(gameWindow.getAttemptWidget().getAttempt() + 5);
+                    prize = sym + " " + sym + " " + sym + "\nВы выйграли 5 дополнительных попыток";
+                    break;
+            }
+        } else {
+            switch (count) {
+                case 2:
+                    gameWindow.getRareMiniralWidget().setRareMiniral(gameWindow.getRareMiniralWidget().getRareMiniral() + 1);
+                    prize = sym + " " + sym + "\nВы выйграли 1 редкий минерал";
+                    break;
+                case 3:
+                    gameWindow.getRareMiniralWidget().setRareMiniral(gameWindow.getRareMiniralWidget().getRareMiniral() + 3);
+                    prize = sym + " " + sym + " " + sym + "\nВы выйграли 3 редких минерала";
+                    break;
+            }
+        }
+
+        return prize;
     }
 
     private function onTick(event:TimerEvent):void {

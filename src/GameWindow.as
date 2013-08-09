@@ -62,12 +62,6 @@ public class GameWindow extends Sprite{
         state.noPushSpin();
     }
 
-    public function getRollLineWidget():RollLineWidget {
-        return rollLineWidget;
-    }
-
-
-
     public function hideForAttemptDialog():void {
         var i:int;
         for (i = 0; i < numChildren; i++) {
@@ -75,6 +69,14 @@ public class GameWindow extends Sprite{
                 getChildAt(i).visible = false;
             }
         }
+    }
+
+    public function getRareMiniralWidget():RareMiniralWidget {
+        return rareMiniralWidget;
+    }
+
+    public function getRollLineWidget():RollLineWidget {
+        return rollLineWidget;
     }
 
     public function getSpinWidget():SpinWidget {
@@ -143,7 +145,6 @@ public class GameWindow extends Sprite{
 
     private function initRareMiniralWidget():void {
         rareMiniralWidget = new RareMiniralWidget(SlotMachine.getRarelMiniral(), this, rec);
-        rareMiniralWidget.setRareMiniral(5);
         addChild(rareMiniralWidget);
     }
 

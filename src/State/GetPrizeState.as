@@ -19,10 +19,11 @@ public class GetPrizeState implements State {
     }
 
     public function getPrize():void {
+        var text:String = gameWindow.getRollLineWidget().getPrize();
         if(gameWindow.getAttemptWidget().getAttempt() == 0) {
-            gameWindow.getPrizeWidget().print("Вот Ваш приз!\nЗакончились попытки!\nПополните их, нажав на кнопку \"Добавить\"");
+            gameWindow.getPrizeWidget().print(text + "\nЗакончились попытки!\nПополните их, нажав на кнопку \"Добавить\"");
         } else {
-            gameWindow.getPrizeWidget().print("Вот Ваш приз!");
+            gameWindow.getPrizeWidget().print(text);
         }
         gameWindow.setState(gameWindow.getNoPushSpinState());
         gameWindow.getState().noPushSpin();
