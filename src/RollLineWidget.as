@@ -21,9 +21,9 @@ public class RollLineWidget extends Sprite {
     private var twoRow:Sprite;
     private var threeRow:Sprite;
 
-    private var emptyRowText:String = "X";
+    private var emptySymbol:String;
 
-    private var images:Array;
+    private var symbol:Array;
 
     var randomOne:int;
     var randomTwo:int;
@@ -32,12 +32,15 @@ public class RollLineWidget extends Sprite {
     public function RollLineWidget(gameWindow:GameWindow, rec:Rectangle) {
         this.gameWindow = gameWindow;
         this.rec = rec;
+
+        emptySymbol = gameWindow.getSymbol().getEmptySymbol();
+
         initRollLineWidget();
         initRows();
     }
 
     public function roll():void {
-        images = new Array("A", "B", "C", "D", "E");
+        symbol = gameWindow.getSymbol().getSymbols();
 
         randomOne = randomNumber(5, 0);
         randomTwo = randomNumber(5, 0);
@@ -56,13 +59,13 @@ public class RollLineWidget extends Sprite {
     private function onTick(event:TimerEvent):void {
         switch (event.target.currentCount) {
             case 1:
-                oneTextField.text = images[randomOne];
+                oneTextField.text = symbol[randomOne];
                 break;
             case 2:
-                twoTextField.text = images[randomTwo];
+                twoTextField.text = symbol[randomTwo];
                 break;
             case 3:
-                threeTextField.text = images[randomThree];
+                threeTextField.text = symbol[randomThree];
                 break;
         }
     }
@@ -73,9 +76,9 @@ public class RollLineWidget extends Sprite {
     }
 
     public function notRolls():Boolean {
-        if (oneTextField.text == emptyRowText &&
-                twoTextField.text == emptyRowText &&
-                threeTextField.text == emptyRowText) {
+        if (oneTextField.text == emptySymbol &&
+                twoTextField.text == emptySymbol &&
+                threeTextField.text == emptySymbol) {
             return true;
         } else {
             return false;
@@ -138,7 +141,7 @@ public class RollLineWidget extends Sprite {
 
     private function paintText(x:int, y:int):TextField {
         var textField:TextField = new TextField();
-        textField.text = emptyRowText;
+        textField.text = emptySymbol;
         textField.x = x;
         textField.y = y;
         textField.width = 60;

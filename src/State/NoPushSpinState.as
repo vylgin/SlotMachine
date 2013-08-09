@@ -7,16 +7,19 @@ public class NoPushSpinState implements State {
     }
 
     public function noPushSpin():void {
+        if (gameWindow.getRollLineWidget().notRolls()) {
+            gameWindow.getPrizeWidget().print("Нажмите на рычаг и испытайте\nсвою удачу!");
+        }
+
         if (gameWindow.getAttemptWidget().getAttempt() > 0) {
             gameWindow.getSpinWidget().setSpinButtonEnabled(true);
             gameWindow.setState(gameWindow.getPushSpinState());
 
         } else {
             gameWindow.getSpinWidget().setSpinButtonEnabled(false);
-        }
-
-        if (gameWindow.getRollLineWidget().notRolls()) {
-            gameWindow.getPrizeWidget().print("Нажмите на рычаг и испытайте\nсвою удачу!");
+            if (gameWindow.getRollLineWidget().notRolls()) {
+                gameWindow.getPrizeWidget().print("Закончились попытки!\nПополните их, нажав на кнопку \"Добавить\"");
+            }
         }
     }
 

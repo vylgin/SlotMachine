@@ -6,6 +6,10 @@ import State.PushSpinState;
 import State.StartRotationState;
 import State.State;
 
+import Symbol.AlphSimbol;
+
+import Symbol.Symbol;
+
 import avmplus.finish;
 
 import flash.display.Shape;
@@ -14,6 +18,8 @@ import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.text.TextField;
+import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 
 public class GameWindow extends Sprite{
     private var prizeTableButton:SimpleButton;
@@ -33,6 +39,9 @@ public class GameWindow extends Sprite{
 
     private var state:State;
 
+    private var alphSymbol:Symbol;
+    private var symbol:Symbol;
+
     public function GameWindow(rec:Rectangle) {
         this.rec = rec;
 
@@ -43,6 +52,9 @@ public class GameWindow extends Sprite{
         getPrizeState = new GetPrizeState(this);
 
         state = noPushSpinState;
+
+        alphSymbol = new AlphSimbol(this);
+        symbol = alphSymbol;
 
         initGui();
 
@@ -109,6 +121,10 @@ public class GameWindow extends Sprite{
 
     public function getGetPrizeState():State {
         return getPrizeState;
+    }
+
+    public function getSymbol():Symbol {
+        return alphSymbol;
     }
 
     private function initGui():void {
@@ -226,14 +242,32 @@ public class GameWindow extends Sprite{
         addChild(prizeTableButton);
     }
 
-    private function paintPrizeTableButton(color:Number):Shape {
-        var button:Shape = new Shape();
+    private function paintPrizeTableButton(color:Number):Sprite {
+        var x:int = rec.x + rec.width - 100;
+        var y:int = rec.y + rec.height - 40;
+        var w:int = 80;
+        var h:int = 20;
+
+        var button:Sprite = new Sprite();
         with (button.graphics) {
             lineStyle(1, 0x000000);
             beginFill(color);
-            drawRect(rec.x + rec.width - 100, rec.y + rec.height - 40, 80, 20);
+            drawRect(x, y, w, h);
             endFill();
         }
+
+        var textField:TextField = new TextField();
+        textField.text = "Таблица призов";
+        textField.x = x;
+        textField.y = y;
+        textField.width = w;
+        textField.height = h;
+        textField.mouseEnabled = false;
+        textField.setTextFormat(getCenterTextFormat());
+        textField.defaultTextFormat = getCenterTextFormat();
+
+        button.addChild(textField);
+
         return button;
     }
 
@@ -242,7 +276,8 @@ public class GameWindow extends Sprite{
     }
 
     private function prizeTableClickHandler(event:MouseEvent):void {
-
+        var prizeTableDialog:PrizeTableDialog = new PrizeTableDialog(this, rec);
+        addChild(prizeTableDialog);
     }
 
     private function exitClickHandler(event:MouseEvent):void {
@@ -250,6 +285,13 @@ public class GameWindow extends Sprite{
         while (this.numChildren > 0) {
             this.removeChildAt(0);
         }
+    }
+
+    private function getCenterTextFormat():TextFormat {
+        var textFormat:TextFormat = new TextFormat();
+        textFormat.align = TextFormatAlign.CENTER;
+        textFormat.size = 10;
+        return textFormat;
     }
 }
 }

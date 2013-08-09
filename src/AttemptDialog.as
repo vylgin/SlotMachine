@@ -7,6 +7,7 @@ import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.text.TextField;
 import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 
 public class AttemptDialog extends Sprite {
     private var rec:Rectangle;
@@ -81,7 +82,7 @@ public class AttemptDialog extends Sprite {
         }
 
         var textFormat:TextFormat = new TextFormat();
-        textFormat.align = "center";
+        textFormat.align = TextFormatAlign.CENTER;
 
         var textField:TextField = new TextField();
         textField.text = "Да";
@@ -99,8 +100,8 @@ public class AttemptDialog extends Sprite {
 
     private function initNoButton():void {
         yesButton = new SimpleButton();
-        yesButton.x = rec.x /4 + 40;
-        yesButton.y = rec.y /4 + 64;
+        yesButton.x = rec.x / 4 + 40;
+        yesButton.y = rec.y / 4 + 64;
 
         yesButton.upState = paintNoButton(0xff0000);
         yesButton.overState = paintNoButton(0xff8c69);
