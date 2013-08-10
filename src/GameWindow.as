@@ -40,7 +40,6 @@ public class GameWindow extends Sprite{
 
     private var state:State;
 
-    private var alphSymbol:Symbol;
     private var symbol:Symbol;
 
     public function GameWindow(rec:Rectangle) {
@@ -54,8 +53,7 @@ public class GameWindow extends Sprite{
 
         state = noPushSpinState;
 
-        alphSymbol = new AlphSimbol(this);
-        symbol = alphSymbol;
+        symbol = new AlphSimbol(this);
 
         initGui();
 
@@ -127,7 +125,7 @@ public class GameWindow extends Sprite{
     }
 
     public function getSymbol():Symbol {
-        return alphSymbol;
+        return symbol;
     }
 
     private function initGui():void {

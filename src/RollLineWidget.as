@@ -46,10 +46,6 @@ public class RollLineWidget extends Sprite {
         randomTwo = randomNumber(5, 0);
         randomThree = randomNumber(5, 0);
 
-//        randomOne = 4;
-//        randomTwo = 2;
-//        randomThree = 4;
-
         oneTextField.text = " ";
         twoTextField.text = " ";
         threeTextField.text = " ";
